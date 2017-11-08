@@ -1,8 +1,8 @@
 {
   "name": "ts-hyperdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SegmentFault / HyperDown.js TypeScript version",
-  "main": "mdParser.ts",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
