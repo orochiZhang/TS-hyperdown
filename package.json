@@ -1,0 +1,24 @@
+{
+  "name": "ts-hyperdown",
+  "version": "1.0.0",
+  "description": "SegmentFault / HyperDown.js TypeScript version",
+  "main": "mdParser.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orochiZhang/TS-hyperdown.git"
+  },
+  "keywords": [
+    "markdown",
+    "typescript",
+    "hyperdown"
+  ],
+  "author": "EdwardZhang",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/orochiZhang/TS-hyperdown/issues"
+  },
+  "homepage": "https://github.com/orochiZhang/TS-hyperdown#readme"
+}
