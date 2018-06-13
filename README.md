@@ -9,7 +9,7 @@ npm install ts-hyperdown
 ```
 **use in Angular4**
 ```javascript
-import { Parser } from 'TS-hyperdown';
+import { Parser } from 'ts-hyperdown';
 ```
 
 ```javascript
@@ -32,7 +32,7 @@ You can use ES6 version in Angular5 and up
 
 **use in Angular5 and up**
 ```javascript
-import { Parser } from 'TS-hyperdown/parser';
+import { Parser } from 'ts-hyperdown/parser';
 ```
 
 ```javascript
