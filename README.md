@@ -1,7 +1,7 @@
 # TS-hyperdown
-[SegmentFault / HyperDown.js](https://github.com/SegmentFault/HyperDown.js) TypeScript version
+[SegmentFault / HyperDown.js](https://github.com/SegmentFault/HyperDown.js) TypeScript version and ES6 version
 
-SegmentFault / HyperDown.js的TypeScript版本
+SegmentFault / HyperDown.js的TypeScript版本和ES6版本
 
 ## Getting Started
 ```javascript
@@ -28,7 +28,6 @@ export class CreateComponent implements OnInit {
 
 use in Vue
 ```javascript
-<script>
 import { Parser } from "ts-hyperdown/parser";
 
 export default {
