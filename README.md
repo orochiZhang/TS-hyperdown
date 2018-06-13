@@ -24,8 +24,23 @@ export class CreateComponent implements OnInit {
   }
 
 }
-
-
 ```
 
+use in Vue
+```javascript
+<script>
+import { Parser } from "ts-hyperdown/parser";
 
+export default {
+  name: "HelloWorld",
+  mounted() {
+    this.test();
+  },
+  methods: {
+    test() {
+      let parser = new Parser();
+      console.log(parser.makeHtml("### hello world"));
+    }
+  }
+};
+```

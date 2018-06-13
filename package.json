@@ -1,6 +1,6 @@
 {
   "name": "ts-hyperdown",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "SegmentFault / HyperDown.js TypeScript version",
   "main": "index.ts",
   "scripts": {
@@ -13,7 +13,8 @@
   "keywords": [
     "markdown",
     "typescript",
-    "hyperdown"
+    "hyperdown",
+    "es6"
   ],
   "author": "EdwardZhang",
   "license": "BSD-2-Clause",

@@ -1,15 +1,15 @@
 var array_keys, array_values, htmlspecialchars,
     preg_quote, str_replace, trim, ucfirst;
 
-ucfirst = function (str) {
+function ucfirst(str) {
     return (str.charAt(0)).toUpperCase() + str.substring(1);
 };
 
-preg_quote = function (str) {
+function preg_quote(str) {
     return str.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 };
 
-str_replace = function (search, replace, str) {
+function str_replace(search, replace, str) {
     var i, j, l, len, len1, val;
     if (search instanceof Array) {
         if (replace instanceof Array) {
@@ -30,11 +30,11 @@ str_replace = function (search, replace, str) {
     return str;
 };
 
-htmlspecialchars = function (str) {
+function htmlspecialchars(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 };
 
-trim = function (str, ch) {
+function trim(str, ch) {
     var c, i, j, ref, search;
     if (ch == null) {
         ch = null;
@@ -53,7 +53,7 @@ trim = function (str, ch) {
     }
 };
 
-array_keys = function (arr) {
+function array_keys(arr) {
     var _, j, k, len, result;
     result = [];
     if (arr instanceof Array) {
@@ -69,7 +69,7 @@ array_keys = function (arr) {
     return result;
 };
 
-array_values = function (arr) {
+function array_values(arr) {
     var _, j, len, result, v;
     result = [];
     if (arr instanceof Array) {
@@ -90,12 +90,14 @@ var slice = [].slice;
 
 export class Parser {
 
-    commonWhiteList = 'kbd|b|i|strong|em|sup|sub|br|code|del|a|hr|small';
-    specialWhiteList = {
-        table: 'table|tbody|thead|tfoot|tr|td|th'
-    };
-    hooks = {};
-    html = false;
+    constructor() {
+        this.commonWhiteList = 'kbd|b|i|strong|em|sup|sub|br|code|del|a|hr|small';
+        this.specialWhiteList = {
+            table: 'table|tbody|thead|tfoot|tr|td|th'
+        };
+        this.hooks = {};
+        this.html = false;
+    }
 
     // Parser() {
     //     this.commonWhiteList = 'kbd|b|i|strong|em|sup|sub|br|code|del|a|hr|small';
@@ -106,7 +108,7 @@ export class Parser {
     //     this.html = false;
     // }
 
-    makeHtml = function (text) {
+    makeHtml(text) {
         var html;
         this.footnotes = [];
         this.definitions = {};
@@ -119,18 +121,18 @@ export class Parser {
         return this.call('makeHtml', html);
     };
 
-    enableHtml = function (html1) {
+    enableHtml(html1) {
         this.html = html1 != null ? html1 : true;
     };
 
-    hook = function (type, cb) {
+    hook(type, cb) {
         if (this.hooks[type] == null) {
             this.hooks[type] = [];
         }
         return this.hooks[type].push(cb);
     };
 
-    makeHolder = function (str) {
+    makeHolder(str) {
         var key;
         key = "|\r" + this.uniqid + this.id + "\r|";
         this.id += 1;
@@ -138,11 +140,11 @@ export class Parser {
         return key;
     };
 
-    initText = function (text) {
+    initText(text) {
         return text.replace(/\t/g, '    ').replace(/\r/g, '');
     };
 
-    makeFootnotes = function (html) {
+    makeFootnotes(html) {
         var index, val;
         if (this.footnotes.length > 0) {
             html += '<div class="footnotes"><hr><ol>';
@@ -162,7 +164,7 @@ export class Parser {
         return html;
     };
 
-    parse = function (text, inline) {
+    parse(text, inline) {
         var block, blocks, end, extract, html, j, len, lines, method, result, start, type, value;
         if (inline == null) {
             inline = false;
@@ -186,7 +188,7 @@ export class Parser {
         return html;
     };
 
-    call = function () {
+    call() {
         var args, callback, j, len, ref, type, value;
         type = arguments[0], args = 2 <= arguments.length ? slice.call(arguments, 1) : [];
         value = args[0];
@@ -202,7 +204,7 @@ export class Parser {
         return value;
     };
 
-    releaseHolder = function (text, clearHolders) {
+    releaseHolder(text, clearHolders) {
         var deep;
         if (clearHolders == null) {
             clearHolders = true;
@@ -218,7 +220,7 @@ export class Parser {
         return text;
     };
 
-    parseInline = function (text, whiteList, clearHolders, enableAutoLink) {
+    parseInline(text, whiteList, clearHolders, enableAutoLink) {
         if (whiteList == null) {
             whiteList = '';
         }
@@ -341,7 +343,7 @@ export class Parser {
         return text;
     };
 
-    parseInlineCallback = function (text) {
+    parseInlineCallback(text) {
         text = text.replace(/(\*{3})((?:.|\r)+?)\1/mg, (function (_this) {
             return function () {
                 var matches;
@@ -394,7 +396,7 @@ export class Parser {
         return text;
     };
 
-    parseBlock = function (text, lines) {
+    parseBlock(text, lines) {
         var align, aligns, block, emptyCount, head, isAfterList, j, key, l, len, len1, len2, line, m, matches, num, ref, row, rows, space, special, tag;
         ref = text.split("\n");
         for (j = 0, len = ref.length; j < len; j++) {
@@ -624,7 +626,7 @@ export class Parser {
         return this.optimizeBlocks(this.blocks, lines);
     };
 
-    optimizeBlocks = function (_blocks, _lines) {
+    optimizeBlocks(_blocks, _lines) {
         var block, blocks, from, isEmpty, key, lines, moved, nextBlock, prevBlock, to, type, types;
         blocks = _blocks.slice(0);
         lines = _lines.slice(0);
@@ -661,7 +663,7 @@ export class Parser {
         return this.call('afterOptimizeBlocks', blocks, lines);
     };
 
-    parseCode = function (lines, parts) {
+    parseCode(lines, parts) {
         var blank, count, lang, rel, str;
         blank = parts[0], lang = parts[1];
         lang = trim(lang);
@@ -687,7 +689,7 @@ export class Parser {
         }
     };
 
-    parsePre = function (lines) {
+    parsePre(lines) {
         var str;
         lines = lines.map(function (line) {
             return htmlspecialchars(line.substring(4));
@@ -700,15 +702,15 @@ export class Parser {
         }
     };
 
-    parseShtml = function (lines) {
+    parseShtml(lines) {
         return trim((lines.slice(1, -1)).join("\n"));
     };
 
-    parseMath = function (lines) {
+    parseMath(lines) {
         return '<p>' + (htmlspecialchars(lines.join("\n"))) + '</p>';
     };
 
-    parseSh = function (lines, num) {
+    parseSh(lines, num) {
         var line;
         line = this.parseInline(trim(lines[0], '# '));
         if (line.match(/^\s*$/)) {
@@ -718,11 +720,11 @@ export class Parser {
         }
     };
 
-    parseMh = function (lines, num) {
+    parseMh(lines, num) {
         return this.parseSh(lines, num);
     };
 
-    parseQuote = function (lines) {
+    parseQuote(lines) {
         var str;
         lines = lines.map(function (line) {
             return line.replace(/^\s*> ?/, '');
@@ -735,7 +737,7 @@ export class Parser {
         }
     };
 
-    parseList = function (lines) {
+    parseList(lines) {
         var found, html, j, key, l, lastType, leftLines, len, len1, len2, line, m, matches, minSpace, row, rows, secondMinSpace, space, text, type;
         html = '';
         minSpace = 99999;
@@ -792,7 +794,7 @@ export class Parser {
         return html;
     };
 
-    parseTable = function (lines, value) {
+    parseTable(lines, value) {
         var aligns, body, column, columns, head, html, ignores, j, key, l, last, len, len1, line, num, output, row, rows, tag, text;
         ignores = value[0], aligns = value[1];
         head = ignores.length > 0 && (ignores.reduce(function (prev, curr) {
@@ -870,11 +872,11 @@ export class Parser {
         return html += '</table>';
     };
 
-    parseHr = function () {
+    parseHr() {
         return '<hr>';
     };
 
-    parseNormal = function (lines) {
+    parseNormal(lines) {
         var str;
         lines = lines.map((function (_this) {
             return function (line) {
@@ -891,7 +893,7 @@ export class Parser {
         }
     };
 
-    parseFootnote = function (lines, value) {
+    parseFootnote(lines, value) {
         var index, note, space;
         space = value[0], note = value[1];
         index = this.footnotes.indexOf(note);
@@ -903,11 +905,11 @@ export class Parser {
         return '';
     };
 
-    parseDefinition = function () {
+    parseDefinition() {
         return '';
     };
 
-    parseHtml = function (lines, type) {
+    parseHtml(lines, type) {
         lines = lines.map((function (_this) {
             return function (line) {
                 return _this.parseInline(line, _this.specialWhiteList[type] != null ? _this.specialWhiteList[type] : '');
@@ -916,7 +918,7 @@ export class Parser {
         return lines.join("\n");
     };
 
-    cleanUrl = function (url) {
+    cleanUrl(url) {
         var matches;
         if (!!(matches = url.match(/^\s*((http|https|ftp|mailto):[x80-xff_a-z0-9-\.\/%#!@\?\+=~\|\,&\(\)]+)/i))) {
             matches[1];
@@ -928,11 +930,11 @@ export class Parser {
         }
     };
 
-    escapeBracket = function (str) {
+    escapeBracket(str) {
         return str_replace(['\\[', '\\]', '\\(', '\\)'], ['[', ']', '(', ')'], str);
     };
 
-    startBlock = function (type, start, value) {
+    startBlock(type, start, value) {
         if (value == null) {
             value = null;
         }
@@ -942,19 +944,19 @@ export class Parser {
         return this;
     };
 
-    endBlock = function () {
+    endBlock() {
         this.current = 'normal';
         return this;
     };
 
-    isBlock = function (type, value) {
+    isBlock(type, value) {
         if (value == null) {
             value = null;
         }
         return this.current === type && (null === value ? true : this.blocks[this.pos][3] === value);
     };
 
-    getBlock = function () {
+    getBlock() {
         if (this.blocks[this.pos] != null) {
             return this.blocks[this.pos];
         } else {
@@ -962,7 +964,7 @@ export class Parser {
         }
     };
 
-    setBlock = function (to, value) {
+    setBlock(to, value) {
         if (to == null) {
             to = null;
         }
@@ -978,7 +980,7 @@ export class Parser {
         return this;
     };
 
-    backBlock = function (step, type, value) {
+    backBlock(step, type, value) {
         var item, last;
         if (value == null) {
             value = null;
@@ -999,7 +1001,7 @@ export class Parser {
         return this;
     };
 
-    combineBlock = function () {
+    combineBlock() {
         var current, prev;
         if (this.pos < 1) {
             return this;
